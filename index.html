@@ -1,35 +1,105 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>fomo-desk</title>
-  <style>
-    html, body {
-      margin: 0;
-      height: 100%;
-      background: #000;
-      color: #fff;
-      font-family: system-ui, sans-serif;
-    }
-    main {
-      min-height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
-      text-align: center;
-    }
-    p {
-      margin: 0;
-      font-size: 1.25rem;
-      line-height: 1.5;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="theme-color" content="#000000">
+  <title>Desk</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="stylesheet" href="app.css">
 </head>
 <body>
-  <main>
-    <p>The desk page is online and will be replaced by the app.</p>
-  </main>
+  <div id="app">
+    <section id="view-boot" class="view view-boot">
+      <div class="boot-mark" aria-hidden="true"></div>
+      <p id="boot-msg" class="muted">Loading the desk…</p>
+    </section>
+
+    <section id="view-home" class="view" hidden>
+      <header class="top">
+        <div class="mode-pill" id="home-mode">PAPER</div>
+        <h1>Desk</h1>
+      </header>
+      <div class="balance-block">
+        <div class="balance" id="home-balance">—</div>
+        <div class="today" id="home-today">—</div>
+      </div>
+      <div id="home-ticket" class="banner" hidden></div>
+      <h2 class="section-title">Open</h2>
+      <div id="home-positions" class="list"></div>
+      <h2 class="section-title">Activity</h2>
+      <div id="home-activity" class="list"></div>
+    </section>
+
+    <section id="view-agents" class="view" hidden>
+      <header class="top"><h1>Agents</h1></header>
+      <div id="agent-cards" class="cards"></div>
+      <h2 class="section-title">Scanner feed</h2>
+      <div id="scanner-feed" class="list"></div>
+    </section>
+
+    <section id="view-auditor" class="view" hidden>
+      <header class="top">
+        <button class="back" data-back>Agents</button>
+        <h1>Auditor</h1>
+      </header>
+      <div id="auditor-status" class="muted">Idle</div>
+      <div id="auditor-layers" class="layers"></div>
+      <div id="auditor-empty" class="empty">No audit running.</div>
+    </section>
+
+    <section id="view-coin" class="view" hidden>
+      <header class="top">
+        <button class="back" data-back>Back</button>
+        <h1 id="coin-title">Coin</h1>
+      </header>
+      <div id="coin-empty" class="empty" hidden>No data for this coin yet.</div>
+      <div id="coin-error" class="empty error" hidden>Could not load this coin.</div>
+      <div id="coin-body">
+        <div class="price-row">
+          <div id="coin-price" class="balance">—</div>
+          <a id="coin-link" class="btn" target="_blank" rel="noopener">Open on FOMO</a>
+        </div>
+        <canvas id="coin-chart" width="390" height="180"></canvas>
+        <div id="coin-meta" class="meta"></div>
+      </div>
+    </section>
+
+    <section id="view-activity" class="view" hidden>
+      <header class="top"><h1>Activity</h1></header>
+      <div id="activity-list" class="list"></div>
+      <div id="activity-empty" class="empty" hidden>No activity yet.</div>
+    </section>
+
+    <section id="view-account" class="view" hidden>
+      <header class="top"><h1>Account</h1></header>
+      <div class="group">
+        <div class="row"><span>Mode</span><span id="acct-mode">—</span></div>
+        <div class="row"><span>Handle</span><span id="acct-handle">—</span></div>
+        <div class="row"><span>Notifier</span><span id="acct-notifier">—</span></div>
+        <div class="row"><span>Report</span><span id="acct-report">—</span></div>
+      </div>
+      <p class="hint">Settings are read-only in this build. Change them from Telegram.</p>
+      <div id="acct-settings" class="group"></div>
+      <a id="acct-signup" class="footer-link" target="_blank" rel="noopener">New to FOMO?</a>
+    </section>
+
+    <section id="view-error" class="view" hidden>
+      <header class="top"><h1>Desk</h1></header>
+      <div class="empty error" id="error-msg">Could not load the desk.</div>
+    </section>
+
+    <nav class="tabbar" id="tabbar" hidden>
+      <button data-tab="home">Home</button>
+      <button data-tab="agents">Agents</button>
+      <button data-tab="activity">Activity</button>
+      <button data-tab="account">Account</button>
+    </nav>
+  </div>
+  <script src="chart.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
