@@ -1,0 +1,1 @@
+{"agent":"auditor","mint":"TTWofwAge91oFhZs7kpQdyrVRkmevgM88xijGvQFbKo","ts":"2026-11-15T10:50:59.551482+00:00","passed":false,"layersChecked":1,"layers":[{"n":1,"name":"Mint authority","pass":false,"value":"mint not revoked","source":"rpc"}],"holders":null,"reason":"mint not revoked"}
